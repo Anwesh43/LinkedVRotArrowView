@@ -43,11 +43,11 @@ fun Canvas.drawVRotArrow(scale : Float, w : Float, h : Float, paint : Paint) {
     for (i in 0..1) {
         save()
         rotate(deg * (1f - 2 * i))
-        drawLine(0f, -size * sc2, 0f, -size * sc1, paint)
+        drawLine(0f, -size * sc3, 0f, -size * sc1, paint)
         for (j in 0..1) {
             save()
             translate(0f, -size)
-            rotate(deg * (1f - 2 * j))
+            rotate(deg * (1f - 2 * j) * sc2.sinify())
             drawLine(0f, 0f, 0f, arrowSize * Math.floor(sc1.toDouble()).toFloat(), paint)
             restore()
         }
@@ -67,14 +67,16 @@ fun Canvas.drawVRANode(i : Int, scale : Float, paint : Paint) {
 
 class VRotArrowView(ctx : Context) : View(ctx) {
 
-    override fun onDraw(canvas : Canvas) {
+    private val renderer : Renderer = Renderer(this)
 
+    override fun onDraw(canvas : Canvas) {
+        renderer.render(canvas)
     }
 
     override fun onTouchEvent(event : MotionEvent) : Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-
+                renderer.handleTap()
             }
         }
         return true
