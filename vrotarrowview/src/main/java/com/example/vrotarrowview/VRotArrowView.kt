@@ -216,4 +216,13 @@ class VRotArrowView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : VRotArrowView {
+            val view : VRotArrowView = VRotArrowView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
