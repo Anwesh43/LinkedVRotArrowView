@@ -191,4 +191,27 @@ class VRotArrowView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : VRotArrowView) {
+
+        private val animator : Animator = Animator(view)
+        private val vra : VRotArrow = VRotArrow(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            vra.draw(canvas, paint)
+            animator.animate {
+                vra.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun  handleTap() {
+            vra.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
