@@ -48,7 +48,7 @@ fun Canvas.drawVRotArrow(scale : Float, w : Float, h : Float, paint : Paint) {
             save()
             translate(0f, -size)
             rotate(deg * (1f - 2 * j) * sc2.sinify())
-            drawLine(0f, 0f, 0f, arrowSize * Math.floor(sc1.toDouble()).toFloat(), paint)
+            drawLine(0f, 0f, 0f, arrowSize * Math.floor((sc1 - sc3).toDouble()).toFloat(), paint)
             restore()
         }
         restore()
@@ -85,7 +85,7 @@ class VRotArrowView(ctx : Context) : View(ctx) {
     data class State(var scale : Float = 0f, var dir : Float = 0f, var prevScale : Float = 0f) {
 
         fun update(cb : (Float) -> Unit) {
-            scale += prevScale * dir
+            scale += (scGap * dir)
             if (Math.abs(scale - prevScale) > 1) {
                 scale = prevScale + dir
                 dir = 0f
