@@ -1,0 +1,3 @@
+include ':vrotarrowview'
+include ':app'
+rootProject.name = "LinkedVRotArrowView"
